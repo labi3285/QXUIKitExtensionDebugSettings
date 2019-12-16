@@ -12,13 +12,11 @@ s.license = "MIT"
 s.author = { "labi3285" => "766043285@qq.com" }
 s.platform = :ios, "8.0"
 s.source = { :git => "https://github.com/labi3285/QXUIKitExtensionDebugSettings.git", :tag => "#{s.version}" }
-# s.source_files = "XXX/XXX/*"
-# s.resources = "XXX/XXX/XXXResources.bundle"
 s.requires_arc = true
 
-# s.frameworks = "MobileCoreServices", "ImageIO"
-# s.dependency 'xxx', '~> x.x.2'
-# pod trunk push XXX.podspec --allow-warnings
+s.dependency 'QXUIKitExtension'
+
+# pod trunk push QXUIKitExtensionDebugSettings.podspec --allow-warnings
 
 end
 
