@@ -8,7 +8,7 @@
 
 import QXUIKitExtension
 
-weak var QXDebugSettingsButton: QXTitleButton?
+public private(set) weak var QXDebugSettingsButton: QXTitleButton?
 
 public func QXDebugAddSettingsButton(to window: UIWindow) {
     #if DEBUG
