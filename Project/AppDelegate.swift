@@ -7,6 +7,7 @@
 //
 
 import QXUIKitExtension
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         w.makeKeyAndVisible()
         window = w
         
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
 
         QXDebugAddSettingsButton(to: w)
         

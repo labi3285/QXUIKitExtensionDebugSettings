@@ -31,47 +31,100 @@ open class QXDebugEnvironmentsViewController: QXTableViewController<Any> {
         var cells: [QXSettingCell] = []
         cells = []
         for e in envs {
-            switch e.1 {
-            case .custom:
-                let c = QXSettingTitleArrowCell()
-                c.titleLabel.text = e.1.name
-                c.backButton.respondClick = { [weak self] in
-                    let vc = QXDebugSettingsViewController()
-                    vc.respondChanged = { [weak self] in
-                        self?.respondChanged?()
-                    }
-                    self?.push(vc)
-                }
-                cells.append(c)
-            default:
-                let c = QXSettingTitleSelectCell()
-                c.titleLabel.text = e.1.name
-                c.isSelected = e.0 == currentEnvironment
-                c.backButton.respondClick = { [weak self, weak c] in
-                    if let ws = self, let c = c {
-                        for _c in cells {
-                            if _c === c {
-                                _c.isSelected = true
-                            } else {
-                                _c.isSelected = false
-                            }
-                        }
-                        UserDefaults.standard.setValue(e.0, forKey: "kQXDebugEnvironmentCode")
-                        UserDefaults.standard.synchronize()
-                        self?.respondChanged?()
-                        
-                        let vc = UIAlertController(title: "提示", message: "设置成功，请重启app。", preferredStyle: .alert)
-                        vc.addAction(UIAlertAction(title: "关闭app", style: .destructive, handler: { (a) in
-                            exit(0)
-                        }))
-                        ws.present(vc)
-                    }
-                }
-                cells.append(c)
+            let c = QXDebugEnvironmentSelectCell()
+            c.titleLabel.text = e.1.name
+            c.isSelected = e.0 == currentEnvironment
+            c.backButton.respondClick = { [weak self] in
+                let vc = QXDebugSettingsViewController()
+                vc.envirnment = e.1
+                self?.push(vc)
             }
+            cells.append(c)
         }
         tableView.sections = [ QXTableViewSection(cells) ]
         tableView.qxReloadData()
     }
         
+}
+
+open class QXDebugEnvironmentSelectCell: QXSettingCell {
+    
+    open override var isSelected: Bool {
+        didSet {
+            super.isSelected = isSelected
+            iconView.isHidden = !isSelected
+        }
+    }
+    
+    open override var isEnabled: Bool {
+        didSet {
+            super.isEnabled = isEnabled
+            backButton.isEnabled = isEnabled
+        }
+    }
+
+    override open func height(_ model: Any?, _ width: CGFloat) -> CGFloat? {
+        let h = super.height(model, width)
+        if let e = h {
+            iconView.fixHeight = e - layoutView.padding.top - layoutView.padding.bottom
+        }
+        return h
+    }
+    
+    public final lazy var titleLabel: QXLabel = {
+        let e = QXLabel()
+        e.numberOfLines = 1
+        e.font = QXFont(16, QXColor.dynamicTitle)
+        e.compressResistanceX = 1
+        return e
+    }()
+    public final lazy var iconView: QXImageView = {
+        let e = QXImageView()
+        e.qxTintColor = QXColor.hex("#20a464", 1)
+        e.image = QXUIKitExtensionResources.shared.image("icon_check.png")
+            .setSize(20, 20)
+            .setRenderingMode(.alwaysTemplate)
+        e.compressResistance = QXView.resistanceStable
+        e.respondUpdateImage = { [weak self] in
+            self?.layoutView.setNeedsLayout()
+        }
+        e.compressResistanceX = 2
+        e.isHidden = true
+        return e
+    }()
+    public final lazy var arrowView: QXImageView = {
+        let e = QXImageView()
+        e.qxTintColor = QXColor.dynamicIndicator
+        e.image = QXUIKitExtensionResources.shared.image("icon_arrow.png")
+            .setRenderingMode(.alwaysTemplate)
+        e.compressResistance = QXView.resistanceStable
+        e.respondUpdateImage = { [weak self] in
+            self?.layoutView.setNeedsLayout()
+        }
+        return e
+    }()
+    public final lazy var layoutView: QXStackView = {
+        let e = QXStackView()
+        e.alignmentY = .center
+        e.alignmentX = .left
+        e.viewMargin = 10
+        e.padding = QXEdgeInsets(5, 15, 5, 15)
+        e.views = [self.titleLabel, self.iconView, QXFlexSpace(), self.arrowView]
+        return e
+    }()
+        
+    public required init() {
+        super.init()
+        contentView.addSubview(layoutView)
+        layoutView.IN(contentView).LEFT.TOP.RIGHT.BOTTOM.MAKE()
+        fixHeight = 50
+        backButton.isDisplay = true
+    }
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    public required init(_ reuseId: String) {
+        fatalError("init(_:) has not been implemented")
+    }
+    
 }
