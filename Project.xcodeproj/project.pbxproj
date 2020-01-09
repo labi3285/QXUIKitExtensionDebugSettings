@@ -15,7 +15,7 @@
 		75BB3DF4236C01370065ADE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75BB3DF3236C01370065ADE5 /* Assets.xcassets */; };
 		75BB3DF7236C01370065ADE5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75BB3DF5236C01370065ADE5 /* LaunchScreen.storyboard */; };
 		75E80C2423A7310300A35ED5 /* QXDebugSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E80C2323A7310300A35ED5 /* QXDebugSettingsViewController.swift */; };
-		75E80C2A23A7618500A35ED5 /* QXDebugEnvironmentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E80C2923A7618500A35ED5 /* QXDebugEnvironmentButton.swift */; };
+		75E80C2A23A7618500A35ED5 /* QXDebugSettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E80C2923A7618500A35ED5 /* QXDebugSettingsButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +30,7 @@
 		75BB3DF6236C01370065ADE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		75BB3DF8236C01370065ADE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75E80C2323A7310300A35ED5 /* QXDebugSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QXDebugSettingsViewController.swift; sourceTree = "<group>"; };
-		75E80C2923A7618500A35ED5 /* QXDebugEnvironmentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QXDebugEnvironmentButton.swift; sourceTree = "<group>"; };
+		75E80C2923A7618500A35ED5 /* QXDebugSettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QXDebugSettingsButton.swift; sourceTree = "<group>"; };
 		E7593E292259258E23C35872 /* Pods_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -67,7 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				759FF4FF23A7143700C5C59A /* QXDebugEnvironment.swift */,
-				75E80C2923A7618500A35ED5 /* QXDebugEnvironmentButton.swift */,
+				75E80C2923A7618500A35ED5 /* QXDebugSettingsButton.swift */,
 				759FF50123A7152100C5C59A /* QXDebugEnvironmentsViewController.swift */,
 				75E80C2323A7310300A35ED5 /* QXDebugSettingsViewController.swift */,
 			);
@@ -221,7 +221,7 @@
 			files = (
 				759FF50023A7143700C5C59A /* QXDebugEnvironment.swift in Sources */,
 				75BB3DEF236C01360065ADE5 /* ViewController.swift in Sources */,
-				75E80C2A23A7618500A35ED5 /* QXDebugEnvironmentButton.swift in Sources */,
+				75E80C2A23A7618500A35ED5 /* QXDebugSettingsButton.swift in Sources */,
 				75E80C2423A7310300A35ED5 /* QXDebugSettingsViewController.swift in Sources */,
 				759FF50223A7152100C5C59A /* QXDebugEnvironmentsViewController.swift in Sources */,
 				75BB3DEB236C01360065ADE5 /* AppDelegate.swift in Sources */,

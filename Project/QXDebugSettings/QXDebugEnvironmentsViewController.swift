@@ -19,8 +19,8 @@ open class QXDebugEnvironmentsViewController: QXTableViewController<Any> {
         tableView.sectionHeaderSpace = 10
         tableView.sectionFooterSpace = 10
         
-        let currentEnvironment = UserDefaults.standard.value(forKey: "kQXDebugEnvironmentCode") as? String ?? QXDebugSetting.Environment.test.code
-        
+        let currentEnvironment = QXDebugSetting.envirment.code
+
         var envs: [(String, QXDebugSetting.Environment)] = []
         for e in QXDebugSetting.settings {
             if envs.firstIndex(where: { $0.0 == e.environment.code }) == nil {

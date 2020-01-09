@@ -85,7 +85,7 @@ public struct QXDebugSetting {
                 }
             }
         }
-        return QXDebugSetting.Environment.test
+        return QXDebugSetting.settings.first?.environment ?? QXDebugSetting.Environment.test
         #else
         return QXDebugSetting.Environment.release
         #endif
@@ -152,7 +152,7 @@ public struct QXDebugSetting {
         public var name: String {
             switch self {
             case .release:
-                return "生成"
+                return "生产"
             case .custom:
                 return "自定义"
             case .test:

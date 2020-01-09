@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = w
         
 
-        QXDebugEnvironmentsButton(w)
+        QXDebugAddSettingsButton(to: w)
         
         return true
     }
