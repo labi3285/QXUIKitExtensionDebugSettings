@@ -11,6 +11,7 @@ import QXUIKitExtension
 open class QXDebugSettingsViewController: QXTableViewController<Any> {
     
     public var envirnment: QXDebugSetting.Environment!
+    public var respondChange: (() -> ())?
 
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,9 +74,11 @@ open class QXDebugSettingsViewController: QXTableViewController<Any> {
                 UserDefaults.standard.setValue(data, forKey: "kQXDebugEnvironmentCustomData")
                 UserDefaults.standard.synchronize()
                 
-                let vc = UIAlertController(title: "提示", message: "设置成功，请重启app。", preferredStyle: .alert)
-                vc.addAction(UIAlertAction(title: "关闭app", style: .destructive, handler: { (a) in
-                     exit(0)
+                let vc = UIAlertController(title: "提示", message: "设置成功", preferredStyle: .alert)
+                vc.addAction(UIAlertAction(title: "确定", style: .destructive, handler: { (a) in
+                    self?.respondChange?()
+                    self?.dismiss()
+                    QXDebugSettingsButton?.title = QXDebugSetting.envirment.name
                 }))
                 self?.present(vc)
             }
@@ -107,9 +110,11 @@ open class QXDebugSettingsViewController: QXTableViewController<Any> {
                 if let e = self?.envirnment {
                     UserDefaults.standard.setValue(e.code, forKey: "kQXDebugEnvironmentCode")
                     UserDefaults.standard.synchronize()
-                    let vc = UIAlertController(title: "提示", message: "设置成功，请重启app。", preferredStyle: .alert)
-                    vc.addAction(UIAlertAction(title: "关闭app", style: .destructive, handler: { (a) in
-                        exit(0)
+                    let vc = UIAlertController(title: "提示", message: "设置成功", preferredStyle: .alert)
+                    vc.addAction(UIAlertAction(title: "确定", style: .destructive, handler: { (a) in
+                        self?.respondChange?()
+                        self?.dismiss()
+                        QXDebugSettingsButton?.title = QXDebugSetting.envirment.name
                     }))
                     self?.present(vc)
                 }
@@ -118,7 +123,7 @@ open class QXDebugSettingsViewController: QXTableViewController<Any> {
             allCells.append(c)
             tableView.sections = [ QXTableViewSection(allCells) ]
         }
-        
+                
     }
     
 }

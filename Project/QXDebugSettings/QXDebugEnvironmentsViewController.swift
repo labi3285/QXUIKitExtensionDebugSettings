@@ -10,8 +10,8 @@ import QXUIKitExtension
 
 open class QXDebugEnvironmentsViewController: QXTableViewController<Any> {
     
-    public var respondChanged: (() -> ())?
-    
+    public var respondChange: (() -> ())?
+
     open override func viewDidLoad() {
         super.viewDidLoad()
         title = "调试设置"
@@ -36,6 +36,7 @@ open class QXDebugEnvironmentsViewController: QXTableViewController<Any> {
             c.isSelected = e.0 == currentEnvironment
             c.backButton.respondClick = { [weak self] in
                 let vc = QXDebugSettingsViewController()
+                vc.respondChange = self?.respondChange
                 vc.envirnment = e.1
                 self?.push(vc)
             }
@@ -62,15 +63,15 @@ open class QXDebugEnvironmentSelectCell: QXSettingCell {
             backButton.isEnabled = isEnabled
         }
     }
-
-    override open func height(_ model: Any?, _ width: CGFloat) -> CGFloat? {
-        let h = super.height(model, width)
+    
+    open override func height(_ model: Any?) -> CGFloat? {
+        let h = super.height(model)
         if let e = h {
             iconView.fixHeight = e - layoutView.padding.top - layoutView.padding.bottom
         }
         return h
     }
-    
+
     public final lazy var titleLabel: QXLabel = {
         let e = QXLabel()
         e.numberOfLines = 1

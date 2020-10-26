@@ -77,10 +77,10 @@ public struct QXDebugSetting {
                     let name = code.replacingOccurrences(of: "other1_", with: "")
                     return .other1(name: name)
                 } else if code.hasPrefix("other2_") {
-                    let name = code.replacingOccurrences(of: "other1_", with: "")
+                    let name = code.replacingOccurrences(of: "other2_", with: "")
                     return .other2(name: name)
                 } else if code.hasPrefix("other3_") {
-                    let name = code.replacingOccurrences(of: "other1_", with: "")
+                    let name = code.replacingOccurrences(of: "other3_", with: "")
                     return .other3(name: name)
                 }
             }
@@ -94,7 +94,7 @@ public struct QXDebugSetting {
     public static func value(_ key: QXDebugSetting.Key) -> Any? {
         var envCode = QXDebugSetting.Environment.release.code
         #if DEBUG
-        envCode = UserDefaults.standard.value(forKey: "kQXDebugEnvironmentCode") as? String ?? QXDebugSetting.Environment.test.code
+        envCode = UserDefaults.standard.value(forKey: "kQXDebugEnvironmentCode") as? String ?? QXDebugSetting.settings.first?.environment.code ?? QXDebugSetting.Environment.test.code
         #endif
         if envCode == QXDebugSetting.Environment.custom.code {
             if let data = UserDefaults.standard.value(forKey: "kQXDebugEnvironmentCustomData") as? Data {

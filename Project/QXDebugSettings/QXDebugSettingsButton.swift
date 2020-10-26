@@ -10,7 +10,7 @@ import QXUIKitExtension
 
 public private(set) weak var QXDebugSettingsButton: QXTitleButton?
 
-public func QXDebugAddSettingsButton(to window: UIWindow) {
+public func QXDebugAddSettingsButton(to window: UIWindow, onChange: @escaping (() -> ())) {
     #if DEBUG
     let btn = QXTitleButton()
     btn.font = QXFont(14, QXColor.green)
@@ -18,6 +18,7 @@ public func QXDebugAddSettingsButton(to window: UIWindow) {
     btn.title = QXDebugSetting.envirment.name
     btn.respondClick = { [weak window] in
         let vc = QXDebugEnvironmentsViewController()
+        vc.respondChange = onChange
         let nav = QXNavigationController(rootViewController: vc)
         window?.qxTopVc?.present(nav, animated: true, completion: nil)
     }

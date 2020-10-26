@@ -1,29 +1,22 @@
 PODS:
-  - Alamofire (4.8.2)
-  - DSImageBrowse (1.0.2):
-    - YYCache (~> 1.0.4)
-    - YYImage (~> 1.0.4)
-    - YYWebImage (~> 1.0.5)
+  - Alamofire (4.9.1)
   - HandyJSON (5.0.1)
-  - IQKeyboardManagerSwift (6.5.4)
+  - JQCollectionViewAlignLayout (0.1.5)
   - MJRefresh (3.1.15.7)
   - QXConsMaker (0.0.8)
   - QXJSON (0.1.1)
-  - QXMessageView (0.0.5)
-  - QXUIKitExtension (0.3.7):
-    - Alamofire (= 4.8.2)
-    - DSImageBrowse (~> 1.0.2)
+  - QXMessageView (0.0.6)
+  - QXUIKitExtension (0.4.0):
+    - Alamofire (= 4.9.1)
     - HandyJSON (~> 5.0.1)
-    - IQKeyboardManagerSwift (~> 6.5.4)
+    - JQCollectionViewAlignLayout (~> 0.1.5)
     - MJRefresh (~> 3.1.15.7)
     - QXConsMaker (~> 0.0.8)
     - QXJSON (~> 0.1.1)
-    - QXMessageView (~> 0.0.5)
+    - QXMessageView (~> 0.0.6)
     - SAMKeychain (~> 1.5.3)
-    - TZImagePickerController (~> 3.2.6)
     - YYWebImage (~> 1.0.5)
   - SAMKeychain (1.5.3)
-  - TZImagePickerController (3.2.9)
   - YYCache (1.0.4)
   - YYImage (1.0.4):
     - YYImage/Core (= 1.0.4)
@@ -33,41 +26,41 @@ PODS:
     - YYImage
 
 DEPENDENCIES:
-  - QXUIKitExtension
+  - QXUIKitExtension (from `/Users/admin/Documents/Daily/Github/QXUIKitExtension/QXUIKitExtension`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  http://repo.baichuan-ios.taobao.com/baichuanSDK/AliBCSpecsMirror.git:
+    - YYCache
+    - YYImage
+    - YYWebImage
+  trunk:
     - Alamofire
-    - DSImageBrowse
     - HandyJSON
-    - IQKeyboardManagerSwift
+    - JQCollectionViewAlignLayout
     - MJRefresh
     - QXConsMaker
     - QXJSON
     - QXMessageView
-    - QXUIKitExtension
     - SAMKeychain
-    - TZImagePickerController
-    - YYCache
-    - YYImage
-    - YYWebImage
+
+EXTERNAL SOURCES:
+  QXUIKitExtension:
+    :path: "/Users/admin/Documents/Daily/Github/QXUIKitExtension/QXUIKitExtension"
 
 SPEC CHECKSUMS:
-  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  DSImageBrowse: 6ba9488bb693a56ebca9c48c3c15bfb9168e82f5
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   HandyJSON: d45b8415c501e3affc59ca9762c1197ff0feb646
-  IQKeyboardManagerSwift: 2dde0fc70110e8eac7ccce2a46fdbec6a850b414
+  JQCollectionViewAlignLayout: d44142c09e6ba96cc874ac5014ff64accb8995ce
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
   QXConsMaker: 32352325ad79720d0fee07d584a879183f5a61ee
   QXJSON: 142a34d8510e11103603c9b3435fe177b0321bd5
-  QXMessageView: c21aeb4489c338463763f35ef5fc07c5435b79f7
-  QXUIKitExtension: 3b12cf6aa1ef542b31726ea27308a9eb46538b21
+  QXMessageView: 1a26098660e0b1e4f857e85fd5181d0689a30324
+  QXUIKitExtension: df3591e7f204099261e4eb37d36cb852af6deecd
   SAMKeychain: 483e1c9f32984d50ca961e26818a534283b4cd5c
-  TZImagePickerController: 1f92968aa0e98a06b9e2eccca8560acc19254257
-  YYCache: 8105b6638f5e849296c71f331ff83891a4942952
-  YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
-  YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
+  YYCache: cc1278c8ac715c096f2eb723133ec6d99c51ca53
+  YYImage: 77a13eba33aa6a298161e1ba6a8483c41c85478d
+  YYWebImage: 5d604f466e7c5bc85805e58f267b822f27dde718
 
-PODFILE CHECKSUM: cfaf8f1dc4cef8225de86bd10e78539fbf3f21d5
+PODFILE CHECKSUM: 2b8a12f88bbf6762798062de09309bb9cd7cf7e6
 
-COCOAPODS: 1.7.2
+COCOAPODS: 1.9.1
