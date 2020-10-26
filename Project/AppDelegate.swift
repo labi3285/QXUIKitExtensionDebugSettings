@@ -22,14 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         w.rootViewController = ViewController()
         w.makeKeyAndVisible()
         window = w
-        
-        QXDebugAddSettingsButton(to: <#T##<<error type>>#>, onChange: <#T##(() -> ())##(() -> ())##() -> ()#>)
-        
+                
 //        IQKeyboardManager.shared.enable = true
 //        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
 
-        QXDebugAddSettingsButton(to: w)
-        
+        QXDebugAddSettingsButton(to: w) {
+            
+        }
+                
         return true
     }
 
