@@ -76,9 +76,9 @@ open class QXDebugSettingsViewController: QXTableViewController<Any> {
                 
                 let vc = UIAlertController(title: "提示", message: "设置成功", preferredStyle: .alert)
                 vc.addAction(UIAlertAction(title: "确定", style: .destructive, handler: { (a) in
-                    self?.respondChange?()
                     self?.dismiss()
                     QXDebugSettingsButton?.title = QXDebugSetting.envirment.name
+                    self?.respondChange?()
                 }))
                 self?.present(vc)
             }

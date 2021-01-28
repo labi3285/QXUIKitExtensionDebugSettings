@@ -54,40 +54,49 @@ import QXUIKitExtension
 
 public struct QXDebugSetting {
     
+    public static var isForceDebugMode: Bool = false
+    
     public static var envirment: QXDebugSetting.Environment {
-        #if DEBUG
-        if let code = UserDefaults.standard.value(forKey: "kQXDebugEnvironmentCode") as? String {
-            switch code {
-            case "release":
-                return .release
-            case "custom":
-                return .custom
-            case "test":
-                return .test
-            case "uat":
-                return .uat
-            case "ut":
-                return .ut
-            case "it":
-                return .it
-            case "st":
-                return .st
-            default:
-                if code.hasPrefix("other1_") {
-                    let name = code.replacingOccurrences(of: "other1_", with: "")
-                    return .other1(name: name)
-                } else if code.hasPrefix("other2_") {
-                    let name = code.replacingOccurrences(of: "other2_", with: "")
-                    return .other2(name: name)
-                } else if code.hasPrefix("other3_") {
-                    let name = code.replacingOccurrences(of: "other3_", with: "")
-                    return .other3(name: name)
+        func debugEnvirment() -> QXDebugSetting.Environment {
+            if let code = UserDefaults.standard.value(forKey: "kQXDebugEnvironmentCode") as? String {
+                switch code {
+                case "release":
+                    return .release
+                case "custom":
+                    return .custom
+                case "test":
+                    return .test
+                case "uat":
+                    return .uat
+                case "ut":
+                    return .ut
+                case "it":
+                    return .it
+                case "st":
+                    return .st
+                default:
+                    if code.hasPrefix("other1_") {
+                        let name = code.replacingOccurrences(of: "other1_", with: "")
+                        return .other1(name: name)
+                    } else if code.hasPrefix("other2_") {
+                        let name = code.replacingOccurrences(of: "other2_", with: "")
+                        return .other2(name: name)
+                    } else if code.hasPrefix("other3_") {
+                        let name = code.replacingOccurrences(of: "other3_", with: "")
+                        return .other3(name: name)
+                    }
                 }
             }
+            return QXDebugSetting.settings.first?.environment ?? QXDebugSetting.Environment.test
         }
-        return QXDebugSetting.settings.first?.environment ?? QXDebugSetting.Environment.test
+        #if DEBUG
+        return debugEnvirment()
         #else
-        return QXDebugSetting.Environment.release
+        if isForceDebugMode {
+            return debugEnvirment()
+        } else {
+            return QXDebugSetting.Environment.release
+        }
         #endif
     }
     
