@@ -11,10 +11,20 @@ import QXUIKitExtension
 open class QXDebugEnvironmentsViewController: QXTableViewController<Any> {
     
     public var respondChange: (() -> ())?
+    
+    public lazy var globalItem: QXBarButtonItem = {
+        let e = QXBarButtonItem.titleItem("全局开关") { [weak self] in
+            let vc = QXDebugGlobalSwitchesViewController()
+            self?.push(vc)
+        }
+        return e
+    }()
 
     open override func viewDidLoad() {
         super.viewDidLoad()
         title = "调试设置"
+        
+        navigationBarRightItem = globalItem
         
         tableView.sectionHeaderSpace = 10
         tableView.sectionFooterSpace = 10

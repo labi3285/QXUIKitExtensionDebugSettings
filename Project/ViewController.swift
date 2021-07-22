@@ -12,8 +12,18 @@ let key_api1 = QXDebugSetting.Key("api地址1", "api1")
 let key_api2 = QXDebugSetting.Key("api地址2", "api2")
 let key_api3 = QXDebugSetting.Key("api地址3", "api3")
 
+let gobal_key_test1 = QXDebugGlobalSwitch.Key("调试开关1", "test1")
+let gobal_key_test2 = QXDebugGlobalSwitch.Key("调试开关2", "test2")
+
+
 /// 在所有方法之前配置
 func SetupApis() {
+    
+    QXDebugGlobalSwitch.switches = [
+        QXDebugGlobalSwitch(gobal_key_test1, true),
+        QXDebugGlobalSwitch(gobal_key_test2, true),
+    ]
+    
     QXDebugSetting.settings = [
         QXDebugSetting(.release, key_api1, "release_url1"),
         QXDebugSetting(.release, key_api2, "release_url2"),
@@ -46,6 +56,12 @@ var baseApi2: String {
 var baseApi3: String {
     return QXDebugSetting.value(key_api3) as? String ?? ""
 }
+var gobalTest1: Bool {
+    return QXDebugGlobalSwitch.value(gobal_key_test1)
+}
+var gobalTest2: Bool {
+    return QXDebugGlobalSwitch.value(gobal_key_test2)
+}
 
 class ViewController: UIViewController {
     
@@ -62,8 +78,15 @@ class ViewController: UIViewController {
         title = "Home"
         view.addSubview(label)
         label.IN(view).CENTER.MAKE()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         var t = ""
+        t += gobalTest1 ? "YES" : "NO"
+        t += "\n"
+        t += gobalTest2 ? "YES" : "NO"
+        t += "\n"
         t += baseApi1
         t += "\n"
         t += baseApi2
@@ -72,10 +95,17 @@ class ViewController: UIViewController {
         t += "\n"
         
         label.text = t
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+//        let vc = UIViewController()
+//        present(vc, animated: true, completion: nil)
+        
+        let vc = QXDebugEnvironmentsViewController()
+        let nav = QXNavigationController(rootViewController: vc)
+        
+        present(nav, animated: true, completion: nil)
         
         print(baseApi1)
         print(baseApi2)

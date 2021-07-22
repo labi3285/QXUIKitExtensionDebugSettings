@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
 
         QXDebugAddSettingsButton(to: w) {
-            
+            exit(0)
         }
                 
         return true

@@ -20,6 +20,7 @@ public func QXDebugAddSettingsButton(to window: UIWindow, onChange: @escaping ((
         let vc = QXDebugEnvironmentsViewController()
         vc.respondChange = onChange
         let nav = QXNavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
         window?.qxTopVc?.present(nav, animated: true, completion: nil)
     }
     window.addSubview(btn)

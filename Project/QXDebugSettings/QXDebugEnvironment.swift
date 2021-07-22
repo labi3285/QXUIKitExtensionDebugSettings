@@ -82,6 +82,12 @@ public struct QXDebugSetting {
                 } else if code.hasPrefix("other3_") {
                     let name = code.replacingOccurrences(of: "other3_", with: "")
                     return .other3(name: name)
+                } else if code.hasPrefix("other4_") {
+                    let name = code.replacingOccurrences(of: "other4_", with: "")
+                    return .other4(name: name)
+                } else if code.hasPrefix("other5_") {
+                    let name = code.replacingOccurrences(of: "other5_", with: "")
+                    return .other5(name: name)
                 }
             }
         }
@@ -116,7 +122,7 @@ public struct QXDebugSetting {
     }
     
     public static var settings: [QXDebugSetting] = []
-    
+
     public enum Environment {
 
         /// 发布
@@ -146,6 +152,10 @@ public struct QXDebugSetting {
         case other2(name: String)
         /// 其他3
         case other3(name: String)
+        /// 其他4
+        case other4(name: String)
+        /// 其他5
+        case other5(name: String)
         
         public static var settings: [QXDebugSetting] = []
 
@@ -170,6 +180,10 @@ public struct QXDebugSetting {
             case .other2(name: let n):
                 return n
             case .other3(name: let n):
+                return n
+            case .other4(name: let n):
+                return n
+            case .other5(name: let n):
                 return n
             }
         }
@@ -196,6 +210,10 @@ public struct QXDebugSetting {
                 return "other2_" + name
             case .other3(name: let name):
                 return "other3_" + name
+            case .other4(name: let name):
+                return "other4_" + name
+            case .other5(name: let name):
+                return "other5_" + name
             }
         }
             
@@ -215,6 +233,53 @@ public struct QXDebugSetting {
     public let value: Any
     public init(_ environment: Environment, _ key: Key, _ value: Any) {
         self.environment = environment
+        self.key = key
+        self.value = value
+    }
+}
+
+public class QXDebugGlobalSwitch {
+    
+    public static var switches: [QXDebugGlobalSwitch] = []
+    
+    public static func value(_ key: QXDebugGlobalSwitch.Key) -> Bool {
+        for e in switches {
+            if e.key.key == key.key {
+                return e.currentValue
+            }
+        }
+        return QXDebugFatalError("invalid key", false)
+    }
+
+    public struct Key {
+        public let name: String
+        public let key: String
+        public init(_ name: String, _ key: String) {
+            self.name = name
+            self.key = key
+        }
+    }
+    public let key: Key
+    public let value: Bool
+    public var currentValue: Bool {
+        #if DEBUG
+        if let e = _cache_value {
+            return e
+        }
+        let b = UserDefaults.standard.value(forKey: key.key) as? String ?? "NO" == "YES"
+        _cache_value = b
+        return b
+        #else
+        return value
+        #endif
+    }
+    private var _cache_value: Bool?
+    
+    public func reset() {
+        _cache_value = nil
+    }
+    
+    public init(_ key: Key, _ value: Bool) {
         self.key = key
         self.value = value
     }
