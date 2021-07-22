@@ -10,13 +10,22 @@ import QXUIKitExtension
 
 /**
  * 样例
-
+ *
+ 
+ let gobal_key_test1 = QXDebugGlobalSwitch.Key("调试开关1", "test1")
+ let gobal_key_test2 = QXDebugGlobalSwitch.Key("调试开关2", "test2")
+ 
  let key_api1 = QXDebugSetting.Key("api地址1", "api1")
  let key_api2 = QXDebugSetting.Key("api地址2", "api2")
  let key_api3 = QXDebugSetting.Key("api地址3", "api3")
 
  /// 在所有方法之前配置
  func SetupApis() {
+ 
+     QXDebugGlobalSwitch.switches = [
+         QXDebugGlobalSwitch(gobal_key_test1, true),
+         QXDebugGlobalSwitch(gobal_key_test2, true),
+     ]
      QXDebugSetting.settings = [
          QXDebugSetting(.release, key_api1, "release_url1"),
          QXDebugSetting(.release, key_api2, "release_url2"),
@@ -54,46 +63,55 @@ import QXUIKitExtension
 
 public struct QXDebugSetting {
     
+    public static var isForceDebugMode: Bool = false
+    
     public static var envirment: QXDebugSetting.Environment {
-        #if DEBUG
-        if let code = UserDefaults.standard.value(forKey: "kQXDebugEnvironmentCode") as? String {
-            switch code {
-            case "release":
-                return .release
-            case "custom":
-                return .custom
-            case "test":
-                return .test
-            case "uat":
-                return .uat
-            case "ut":
-                return .ut
-            case "it":
-                return .it
-            case "st":
-                return .st
-            default:
-                if code.hasPrefix("other1_") {
-                    let name = code.replacingOccurrences(of: "other1_", with: "")
-                    return .other1(name: name)
-                } else if code.hasPrefix("other2_") {
-                    let name = code.replacingOccurrences(of: "other2_", with: "")
-                    return .other2(name: name)
-                } else if code.hasPrefix("other3_") {
-                    let name = code.replacingOccurrences(of: "other3_", with: "")
-                    return .other3(name: name)
-                } else if code.hasPrefix("other4_") {
-                    let name = code.replacingOccurrences(of: "other4_", with: "")
-                    return .other4(name: name)
-                } else if code.hasPrefix("other5_") {
-                    let name = code.replacingOccurrences(of: "other5_", with: "")
-                    return .other5(name: name)
+        func debugEnvirment() -> QXDebugSetting.Environment {
+            if let code = UserDefaults.standard.value(forKey: "kQXDebugEnvironmentCode") as? String {
+                switch code {
+                case "release":
+                    return .release
+                case "custom":
+                    return .custom
+                case "test":
+                    return .test
+                case "uat":
+                    return .uat
+                case "ut":
+                    return .ut
+                case "it":
+                    return .it
+                case "st":
+                    return .st
+                default:
+                    if code.hasPrefix("other1_") {
+                        let name = code.replacingOccurrences(of: "other1_", with: "")
+                        return .other1(name: name)
+                    } else if code.hasPrefix("other2_") {
+                        let name = code.replacingOccurrences(of: "other2_", with: "")
+                        return .other2(name: name)
+                    } else if code.hasPrefix("other3_") {
+                        let name = code.replacingOccurrences(of: "other3_", with: "")
+                        return .other3(name: name)
+                    } else if code.hasPrefix("other4_") {
+                        let name = code.replacingOccurrences(of: "other4_", with: "")
+                        return .other4(name: name)
+                    } else if code.hasPrefix("other5_") {
+                        let name = code.replacingOccurrences(of: "other5_", with: "")
+                        return .other5(name: name)
+                    }
                 }
             }
+            return QXDebugSetting.settings.first?.environment ?? QXDebugSetting.Environment.test
         }
-        return QXDebugSetting.settings.first?.environment ?? QXDebugSetting.Environment.test
+        #if DEBUG
+        return debugEnvirment()
         #else
-        return QXDebugSetting.Environment.release
+        if isForceDebugMode {
+            return debugEnvirment()
+        } else {
+            return QXDebugSetting.Environment.release
+        }
         #endif
     }
     

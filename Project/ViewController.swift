@@ -8,12 +8,12 @@
 
 import QXUIKitExtension
 
+let gobal_key_test1 = QXDebugGlobalSwitch.Key("调试开关1", "test1")
+let gobal_key_test2 = QXDebugGlobalSwitch.Key("调试开关2", "test2")
+
 let key_api1 = QXDebugSetting.Key("api地址1", "api1")
 let key_api2 = QXDebugSetting.Key("api地址2", "api2")
 let key_api3 = QXDebugSetting.Key("api地址3", "api3")
-
-let gobal_key_test1 = QXDebugGlobalSwitch.Key("调试开关1", "test1")
-let gobal_key_test2 = QXDebugGlobalSwitch.Key("调试开关2", "test2")
 
 
 /// 在所有方法之前配置
