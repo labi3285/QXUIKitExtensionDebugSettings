@@ -12,9 +12,9 @@ open class QXDebugEnvironmentsViewController: QXTableViewController<Any> {
     
     public var respondChange: (() -> ())?
     
-    public lazy var globalItem: QXBarButtonItem = {
-        let e = QXBarButtonItem.titleItem("全局开关") { [weak self] in
-            let vc = QXDebugGlobalSwitchesViewController()
+    public lazy var switchesItem: QXBarButtonItem = {
+        let e = QXBarButtonItem.titleItem("开关") { [weak self] in
+            let vc = QXDebugSwitchesViewController()
             self?.push(vc)
         }
         return e
@@ -22,9 +22,11 @@ open class QXDebugEnvironmentsViewController: QXTableViewController<Any> {
 
     open override func viewDidLoad() {
         super.viewDidLoad()
-        title = "调试设置"
+        title = "环境变量"
         
-        navigationBarRightItem = globalItem
+        if QXDebugSwitch.switches.count > 0 {
+            navigationBarRightItem = switchesItem
+        }
         
         tableView.sectionHeaderSpace = 10
         tableView.sectionFooterSpace = 10
@@ -39,7 +41,6 @@ open class QXDebugEnvironmentsViewController: QXTableViewController<Any> {
         }
         
         var cells: [QXSettingCell] = []
-        cells = []
         for e in envs {
             let c = QXDebugEnvironmentSelectCell()
             c.titleLabel.text = e.1.name

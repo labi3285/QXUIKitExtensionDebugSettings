@@ -8,13 +8,13 @@
 
 import QXUIKitExtension
 
-open class QXDebugGlobalSwitchesViewController: QXTableViewController<Any> {
+open class QXDebugSwitchesViewController: QXTableViewController<Any> {
     
     public var respondChange: (() -> ())?
 
     open override func viewDidLoad() {
         super.viewDidLoad()
-        title = "全局开关"
+        title = "开关"
         tableView.sectionHeaderSpace = 10
         tableView.sectionFooterSpace = 10
     }
@@ -22,7 +22,7 @@ open class QXDebugGlobalSwitchesViewController: QXTableViewController<Any> {
     override open func didSetup() {
         super.didSetup()
         var allCells = [Any]()
-        for e in QXDebugGlobalSwitch.switches {
+        for e in QXDebugSwitch.switches {
             let c = QXSettingTitleSwitchCell()
             c.titleLabel.text = e.key.name
             c.switchView.isOn = e.currentValue
@@ -34,7 +34,7 @@ open class QXDebugGlobalSwitchesViewController: QXTableViewController<Any> {
         tableView.sections = [ QXTableViewSection(allCells) ]
     }
     
-    open func handleChange(_ e: QXDebugGlobalSwitch, isOn: Bool) {
+    open func handleChange(_ e: QXDebugSwitch, isOn: Bool) {
         UserDefaults.standard.setValue(isOn ? "YES" : "NO", forKey: e.key.key)
         UserDefaults.standard.synchronize()
         e.reset()

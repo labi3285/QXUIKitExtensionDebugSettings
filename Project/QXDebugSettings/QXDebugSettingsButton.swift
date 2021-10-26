@@ -17,7 +17,7 @@ public func QXDebugAddSettingsButton(to window: UIWindow, onChange: @escaping ((
         btn.padding = QXEdgeInsets(5, 5, 5, 5)
         btn.title = QXDebugSetting.envirment.name
         btn.respondClick = { [weak window] in
-            let vc = QXDebugEnvironmentsViewController()
+            let vc = QXDebugSettingsTodosViewController()
             vc.respondChange = onChange
             let nav = QXNavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .fullScreen

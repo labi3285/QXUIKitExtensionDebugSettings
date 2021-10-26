@@ -8,8 +8,8 @@
 
 import QXUIKitExtension
 
-let gobal_key_test1 = QXDebugGlobalSwitch.Key("调试开关1", "test1")
-let gobal_key_test2 = QXDebugGlobalSwitch.Key("调试开关2", "test2")
+let gobal_key_test1 = QXDebugSwitch.Key("调试开关1", "test1")
+let gobal_key_test2 = QXDebugSwitch.Key("调试开关2", "test2")
 
 let key_api1 = QXDebugSetting.Key("api地址1", "api1")
 let key_api2 = QXDebugSetting.Key("api地址2", "api2")
@@ -19,9 +19,9 @@ let key_api3 = QXDebugSetting.Key("api地址3", "api3")
 /// 在所有方法之前配置
 func SetupApis() {
     
-    QXDebugGlobalSwitch.switches = [
-        QXDebugGlobalSwitch(gobal_key_test1, true),
-        QXDebugGlobalSwitch(gobal_key_test2, true),
+    QXDebugSwitch.switches = [
+        QXDebugSwitch(gobal_key_test1, true),
+        QXDebugSwitch(gobal_key_test2, true),
     ]
     
     QXDebugSetting.settings = [
@@ -57,10 +57,10 @@ var baseApi3: String {
     return QXDebugSetting.value(key_api3) as? String ?? ""
 }
 var gobalTest1: Bool {
-    return QXDebugGlobalSwitch.value(gobal_key_test1)
+    return QXDebugSwitch.value(gobal_key_test1)
 }
 var gobalTest2: Bool {
-    return QXDebugGlobalSwitch.value(gobal_key_test2)
+    return QXDebugSwitch.value(gobal_key_test2)
 }
 
 class ViewController: UIViewController {
@@ -78,6 +78,12 @@ class ViewController: UIViewController {
         title = "Home"
         view.addSubview(label)
         label.IN(view).CENTER.MAKE()
+        
+        QXDebugTodo.todos.append(QXDebugTodo("测试", { [weak self] in
+            let vc = UIAlertController(title: "测试", message: "测试内容", preferredStyle: .alert)
+            vc.addAction(UIAlertAction.init(title: "确定", style: .cancel, handler: nil))
+            self?.present(vc, animated: true, completion: nil)
+        }))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -102,10 +108,10 @@ class ViewController: UIViewController {
 //        let vc = UIViewController()
 //        present(vc, animated: true, completion: nil)
         
-        let vc = QXDebugEnvironmentsViewController()
-        let nav = QXNavigationController(rootViewController: vc)
-        
-        present(nav, animated: true, completion: nil)
+//        let vc = QXDebugEnvironmentsViewController()
+//        let nav = QXNavigationController(rootViewController: vc)
+//
+//        present(nav, animated: true, completion: nil)
         
         print(baseApi1)
         print(baseApi2)

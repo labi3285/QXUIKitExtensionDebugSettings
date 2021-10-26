@@ -12,8 +12,8 @@ import QXUIKitExtension
  * 样例
  *
  
- let gobal_key_test1 = QXDebugGlobalSwitch.Key("调试开关1", "test1")
- let gobal_key_test2 = QXDebugGlobalSwitch.Key("调试开关2", "test2")
+ let gobal_key_test1 = QXDebugSwitch.Key("调试开关1", "test1")
+ let gobal_key_test2 = QXDebugSwitch.Key("调试开关2", "test2")
  
  let key_api1 = QXDebugSetting.Key("api地址1", "api1")
  let key_api2 = QXDebugSetting.Key("api地址2", "api2")
@@ -21,10 +21,13 @@ import QXUIKitExtension
 
  /// 在所有方法之前配置
  func SetupApis() {
+     QXDebugTodo.todos.append(QXDebugTodo("测试", {
+         // todo
+     }))
  
-     QXDebugGlobalSwitch.switches = [
-         QXDebugGlobalSwitch(gobal_key_test1, true),
-         QXDebugGlobalSwitch(gobal_key_test2, true),
+     QXDebugSwitch.switches = [
+         QXDebugSwitch(gobal_key_test1, true),
+         QXDebugSwitch(gobal_key_test2, true),
      ]
      QXDebugSetting.settings = [
          QXDebugSetting(.release, key_api1, "release_url1"),
@@ -256,11 +259,11 @@ public struct QXDebugSetting {
     }
 }
 
-public class QXDebugGlobalSwitch {
+public class QXDebugSwitch {
     
-    public static var switches: [QXDebugGlobalSwitch] = []
+    public static var switches: [QXDebugSwitch] = []
     
-    public static func value(_ key: QXDebugGlobalSwitch.Key) -> Bool {
+    public static func value(_ key: QXDebugSwitch.Key) -> Bool {
         for e in switches {
             if e.key.key == key.key {
                 return e.currentValue
@@ -301,4 +304,18 @@ public class QXDebugGlobalSwitch {
         self.key = key
         self.value = value
     }
+}
+
+public struct QXDebugTodo {
+    
+    public let name: String
+    public let todo: () -> Void
+    
+    public init(_ name: String, _ todo: @escaping () -> Void) {
+        self.name = name
+        self.todo = todo
+    }
+    
+    public static var todos: [QXDebugTodo] = []
+
 }
