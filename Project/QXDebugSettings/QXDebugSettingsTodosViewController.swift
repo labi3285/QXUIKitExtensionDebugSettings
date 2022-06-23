@@ -12,8 +12,16 @@ open class QXDebugSettingsTodosViewController: QXTableViewController<Any> {
     
     public var respondChange: (() -> ())?
     
+    public lazy var logItem: QXBarButtonItem = {
+        let e = QXBarButtonItem.titleItem("日志") { [weak self] in
+            let vc = QXDebugLogsViewController()
+            self?.push(vc)
+        }
+        return e
+    }()
+    
     public lazy var environmentItem: QXBarButtonItem = {
-        let e = QXBarButtonItem.titleItem("环境变量") { [weak self] in
+        let e = QXBarButtonItem.titleItem("变量") { [weak self] in
             let vc = QXDebugEnvironmentsViewController()
             vc.respondChange = self?.respondChange
             self?.push(vc)
@@ -25,7 +33,7 @@ open class QXDebugSettingsTodosViewController: QXTableViewController<Any> {
         super.viewDidLoad()
         title = "调试"
         
-        navigationBarRightItem = environmentItem
+        navigationBarRightItems = [ environmentItem, logItem ]
         
         tableView.sectionHeaderSpace = 10
         tableView.sectionFooterSpace = 10

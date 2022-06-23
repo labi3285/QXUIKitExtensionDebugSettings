@@ -113,6 +113,8 @@ class ViewController: UIViewController {
 //
 //        present(nav, animated: true, completion: nil)
         
+        QXDebugLog.log(.info, QXDebugRandomText(500))
+        
         print(baseApi1)
         print(baseApi2)
         print(baseApi3)
